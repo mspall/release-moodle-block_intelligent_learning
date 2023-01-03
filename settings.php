@@ -156,14 +156,6 @@ if ($ADMIN->fulltree) {
         PARAM_URL
     );
 
-    $configs[] = new admin_setting_configtext(
-        'maxnumberofdays',
-        new lang_string('maxnumberofdays', 'block_intelligent_learning'),
-        new lang_string('maxnumberofdaysdesc', 'block_intelligent_learning'),
-        '365',
-        PARAM_INT,
-        '4'
-    );
 
     $configs[] = new admin_setting_configpasswordunmask(
         'webservices_token',
