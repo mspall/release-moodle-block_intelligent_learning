@@ -418,9 +418,9 @@ class blocks_intelligent_learning_model_service_user extends blocks_intelligent_
         // Update data array.
         $data['username'] = $username;
 
-        if (empty($data['idnumber'])) {
-            throw new Exception('No idnumber passed, required');
-        }
+        #if (empty($data['idnumber'])) {
+        #    throw new Exception('No idnumber passed, required');
+        #}
         $idnumber = $data['idnumber'];
         // Try to get user that we are operating on.
         $user = $DB->get_record('user', array('mnethostid' => $CFG->mnet_localhost_id, 'username' => $username));
@@ -429,7 +429,7 @@ class blocks_intelligent_learning_model_service_user extends blocks_intelligent_
             if ($user['idnumber'] != $idnumber) {
                 $user2 = $DB->get_record('user', array('idnumber' => $idnumber));
                 if ($user2) {
-                    throw new Exception('Two users, one with matching username, one with matching idnumber.');
+                    #throw new Exception('Two users, one with matching username, one with matching idnumber.');
                 }
             }
         } else {
