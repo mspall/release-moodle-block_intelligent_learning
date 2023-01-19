@@ -426,12 +426,12 @@ class blocks_intelligent_learning_model_service_user extends blocks_intelligent_
         $user = $DB->get_record('user', array('mnethostid' => $CFG->mnet_localhost_id, 'username' => $username));
 
         if($user) {
-            if ($user['idnumber'] != $idnumber) {
-                $user2 = $DB->get_record('user', array('idnumber' => $idnumber));
-                if ($user2) {
-                    #throw new Exception('Two users, one with matching username, one with matching idnumber.');
-                }
-            }
+           # if ($user['idnumber'] != $idnumber) {
+           #     $user2 = $DB->get_record('user', array('idnumber' => $idnumber));
+           #     if ($user2) {
+           #         #throw new Exception('Two users, one with matching username, one with matching idnumber.');
+           #     }
+           # }
         } else {
             $user = $DB->get_record('user', array('idnumber' => $idnumber));
         }
