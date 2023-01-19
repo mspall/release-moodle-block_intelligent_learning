@@ -403,6 +403,9 @@ class blocks_intelligent_learning_model_service_user extends blocks_intelligent_
 
         list($action, $data) = $this->helper->xmlreader->validate_xml($xml, $this);
 
+        error_log("Print data variable to error log");
+        error_log(print_r($data, true));
+
         if (empty($data['username'])) {
             throw new Exception('No username passed, required');
         }
