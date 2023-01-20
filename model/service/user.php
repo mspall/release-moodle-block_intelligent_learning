@@ -412,8 +412,15 @@ class blocks_intelligent_learning_model_service_user extends blocks_intelligent_
         // Update data array.
         $data['username'] = $username;
 
+        $idnumber = $data['idnumber'];
+
         // Try to get user that we are operating on.
         $user = $DB->get_record('user', array('mnethostid' => $CFG->mnet_localhost_id, 'username' => $username));
+
+        if($user) {
+        } else {
+            $user = $DB->get_record('user', array('idnumber' => $idnumber));
+        }
 
         switch($action) {
             case 'create':
