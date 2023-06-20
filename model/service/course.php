@@ -358,7 +358,9 @@ class blocks_intelligent_learning_model_service_course extends blocks_intelligen
         // Check if this is a metacourse.
         if (isset($data["children"])) {
             $children = $data["children"];
-            $metacourse = $this->process_metacourse($course, $children);
+            $crossliststartdate = $data["startdate"];
+            $crosslistenddate = $data["enddate"];
+            $metacourse = $this->process_metacourse($course, $children, $crossliststartdate, $crosslistenddate);
             
             //if parent course is assigned a valid end date, turn off auto end date setting
             if (!is_null($metacourse) and property_exists($metacourse, 'automaticenddate')) {
@@ -441,7 +443,9 @@ class blocks_intelligent_learning_model_service_course extends blocks_intelligen
         // Check if this is a metacourse.
         if (isset($data["children"])) {
             $children = $data["children"];
-            $this->process_metacourse($course, $children);
+            $crossliststartdate = $data["startdate"];
+            $crosslistenddate = $data["enddate"];
+            $this->process_metacourse($course, $children, $crossliststartdate, $crosslistenddate);
         }
     }
 
@@ -521,7 +525,7 @@ class blocks_intelligent_learning_model_service_course extends blocks_intelligen
      * @throws Exception
      * @return int
      */
-    protected function process_metacourse($course, $children) {
+    protected function process_metacourse($course, $children, $crossliststartdate, $crosslistenddate) {
         global $CFG, $DB;
         $metacourse = null;
         try {
@@ -529,8 +533,8 @@ class blocks_intelligent_learning_model_service_course extends blocks_intelligen
                 $parentfullname = "";
                 $parentcategory = "";
                 $parentshortname = "";
-                $parentstartdate = time();
-                $parentenddate = strtotime('1970-01-01');
+                $parentstartdate = $crossliststartdate;
+                $parentenddate = $crosslistenddate;
                 $parentautomaticenddate = 1;
 
                 $childids = explode(',', $children);
@@ -548,12 +552,10 @@ class blocks_intelligent_learning_model_service_course extends blocks_intelligen
                         $existingchild     = $DB->get_record('enrol', array('enrol' => 'meta', 'courseid' => $metacourse->id, 'customint1' => $child->id));
 
                         $parentfullname .= ", " . $child->fullname;
-                        $parentstartdate = min(array($parentstartdate, $child->startdate));
                         $parentcategory = $child->category;
                         $parentshortname .= ", " . $child->shortname;
                         //Add latest child course end date to parent, if end date exists 
                         if (property_exists($child, 'enddate')) {
-                        	$parentenddate = max(array($parentenddate, $child->enddate));
                         	
                         	//if auto end date setting not turned off already and start/end dates don't match
                         	//then turn setting off

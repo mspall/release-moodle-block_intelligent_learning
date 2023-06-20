@@ -87,7 +87,7 @@ class blocks_intelligent_learning_model_service_user extends blocks_intelligent_
      * @param $maxdays - maximum number of days from the start date of a class that it should stay in
      * @return string
      */
-    public function get_user_course_recent_activity($username = null, $maxdays, $userid = null, $course = null, $fromdate = null, $collapse = false, $percourse = 10) {
+    public function get_user_course_recent_activity($maxdays, $username = null, $userid = null, $course = null, $fromdate = null, $collapse = false, $percourse = 10) {
         global $USER;
 
         // Allow items to be retrieved using either username or idnumber.
@@ -252,7 +252,6 @@ class blocks_intelligent_learning_model_service_user extends blocks_intelligent_
         }
         return $this->response->user_get_user_course_activities_due($user, $courses, $dueactivities);
     }
-
     /**
      * Get a user's course calendar events
      *     
@@ -261,7 +260,7 @@ class blocks_intelligent_learning_model_service_user extends blocks_intelligent_
      * @param string $username - The user's username; either username or id is required
      * @param string $userid - The user's id; either username or id is required
      * @param string $course The course's idnumber - if not passed, all user courses are returned
-      * @param $maxdays - maximum number of days from the start date of a class that it should stay in
+     * @param $maxdays - maximum number of days from the start date of a class that it should stay in
      * @return string
      */
     public function get_user_course_events($fromdate, $todate, $maxdays, $username = null, $userid = null, $course = null) {
@@ -414,9 +413,16 @@ class blocks_intelligent_learning_model_service_user extends blocks_intelligent_
         }
         // Update data array.
         $data['username'] = $username;
+        $idnumber = $data['idnumber'];
 
         // Try to get user that we are operating on.
         $user = $DB->get_record('user', array('mnethostid' => $CFG->mnet_localhost_id, 'username' => $username));
+
+        // Try to get user based on the idnumber
+        // empty $(user) returns true if null, empty string, 0, false
+         if(empty($user)) {
+            $user = $DB->get_record('user', array('mnethostid' => $CFG->mnet_localhost_id, 'idnumber' => $idnumber));
+        }
 
         switch($action) {
             case 'create':

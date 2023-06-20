@@ -114,13 +114,16 @@ if ($ADMIN->fulltree) {
         'm/d/Y',
         $helper->date->get_formats()
     );
-
+    /*
+     * Category grade cutoff
+     
     $configs[] = new admin_setting_intelligent_learning_catdate(
         'categorycutoff',
         new lang_string('categorycutoff', 'block_intelligent_learning'),
         new lang_string('categorycutoffdesc', 'block_intelligent_learning'),
         ''
     );
+    */
 
     $options   = array(
         1 => '1',
@@ -130,6 +133,9 @@ if ($ADMIN->fulltree) {
         5 => '5',
         6 => '6'
     );
+
+    /*
+    * Midterm Grades
     $configs[] = new admin_setting_configselect(
         'midtermgradecolumns',
         new lang_string('midtermgradecolumns', 'block_intelligent_learning'),
@@ -137,6 +143,7 @@ if ($ADMIN->fulltree) {
         1,
         $options
     );
+    */
 
      $configs[] = new admin_setting_configselect(
         'gradevalidatelocalgradescheme',
@@ -174,6 +181,8 @@ if ($ADMIN->fulltree) {
     );
 
     // Colleague-only settings.
+    /*
+    * 
     $configs[] = new admin_setting_heading('colleaguesection', new lang_string('colleaguesection', 'block_intelligent_learning'), null);
 
     $configs[] = new admin_setting_configselect(
@@ -212,6 +221,7 @@ if ($ADMIN->fulltree) {
         new lang_string('stgradebookpiddesc', 'block_intelligent_learning'),
         'ST-GBS005'
     );
+    */
 
     // Banner-only settings.
     $configs[] = new admin_setting_heading('bannersection', new lang_string('bannersection', 'block_intelligent_learning'), null);
