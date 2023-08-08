@@ -52,7 +52,6 @@ $plugin->release   = '3.2.3 (Build: 2023060701)';
 $plugin->dependencies = array(
     'local_mr' => 2010090201,
     'mod_assign' => ANY_VERSION,
-    'mod_assignment' => ANY_VERSION,
     'mod_quiz' => ANY_VERSION,
     'mod_lesson' => ANY_VERSION
 );
