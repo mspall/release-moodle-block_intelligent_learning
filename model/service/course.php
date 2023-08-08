@@ -382,8 +382,6 @@ class blocks_intelligent_learning_model_service_course extends blocks_intelligen
 
             // Create a default section.
             course_create_sections_if_missing($course, 0);
-
-            blocks_add_default_course_blocks($course);
         } catch (dml_exception $e) {
             throw new Exception("Failed to get course object from database id = $courseid");
         }
